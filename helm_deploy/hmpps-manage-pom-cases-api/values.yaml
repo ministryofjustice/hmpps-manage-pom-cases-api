@@ -1,18 +1,38 @@
+---
+# Default values.
+# Declare variables to be passed into your templates.
+#
+# Variables in `helm_deploy/values-[env].yaml` will take precedence.
+
 generic-service:
   nameOverride: hmpps-manage-pom-cases-api
-  productId: "DPS030" # productId for the product that this belongs too, i.e. DPS001, see README.md for details
+  productId: DPS030
 
-  replicaCount: 4
+  replicaCount: 2
 
   image:
     repository: ghcr.io/ministryofjustice/hmpps-manage-pom-cases-api
-    tag: app_version # override at deployment time
+    tag: app_version # overridden at deployment time
     port: 8080
 
   ingress:
     enabled: true
-    host: app-hostname.local # override per environment
     tlsSecretName: hmpps-manage-pom-cases-api-cert
+
+  # https://github.com/ministryofjustice/hmpps-ip-allowlists/blob/main/ip-allowlist-groups.yaml
+  allowlist:
+    groups:
+      - digital_staff_and_mojo
+      - moj_cloud_platform
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 50%
+
+  podSecurityContext:
+    fsGroup: 2000
 
   # Environment variables to load into the deployment
   env:
@@ -24,7 +44,6 @@ generic-service:
   # namespace_secrets:
   #   [name of kubernetes secret]:
   #     [name of environment variable as seen by app]: [key of kubernetes secret to load]
-
   namespace_secrets:
     hmpps-manage-pom-cases-api-client-creds:
       # Example client registration secrets
@@ -32,10 +51,11 @@ generic-service:
       EXAMPLE_API_CLIENT_SECRET: "API_CLIENT_SECRET"
     hmpps-manage-pom-cases-api-application-insights:
       APPLICATIONINSIGHTS_CONNECTION_STRING: "APPLICATIONINSIGHTS_CONNECTION_STRING"
-
-  allowlist:
-    groups:
-      - internal
+    rds-instance-output:
+      DB_NAME: "database_name"
+      DB_PASS: "database_password"
+      DB_USER: "database_username"
+      DB_SERVER: "rds_instance_address"
 
 generic-prometheus-alerts:
   targetApplication: hmpps-manage-pom-cases-api
