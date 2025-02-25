@@ -49,6 +49,8 @@ generic-service:
       # Example client registration secrets
       EXAMPLE_API_CLIENT_ID: "API_CLIENT_ID"
       EXAMPLE_API_CLIENT_SECRET: "API_CLIENT_SECRET"
+      API_CLIENT_ID: "API_CLIENT_ID"
+      API_CLIENT_SECRET: "API_CLIENT_SECRET"
     hmpps-manage-pom-cases-api-application-insights:
       APPLICATIONINSIGHTS_CONNECTION_STRING: "APPLICATIONINSIGHTS_CONNECTION_STRING"
     rds-instance-output:
