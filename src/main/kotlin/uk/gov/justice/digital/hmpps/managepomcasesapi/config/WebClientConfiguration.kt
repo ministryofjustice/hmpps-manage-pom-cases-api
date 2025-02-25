@@ -13,6 +13,7 @@ import java.time.Duration
 class WebClientConfiguration(
   @Value("\${example-api.url}") val exampleApiBaseUri: String,
   @Value("\${hmpps-auth.url}") val hmppsAuthBaseUri: String,
+  @Value("\${hmpps-prisoner-search-api.url}") val hmppsPrisonerSearchBaseUri: String,
   @Value("\${api.health-timeout:2s}") val healthTimeout: Duration,
   @Value("\${api.timeout:20s}") val timeout: Duration,
 ) {
@@ -28,4 +29,7 @@ class WebClientConfiguration(
   // TODO: This is an example bean for calling other services and should be removed / replaced
   @Bean
   fun exampleApiWebClient(authorizedClientManager: OAuth2AuthorizedClientManager, builder: WebClient.Builder): WebClient = builder.authorisedWebClient(authorizedClientManager, registrationId = "example-api", url = exampleApiBaseUri, timeout)
+
+  @Bean
+  fun prisonerSearchWebClient(authorizedClientManager: OAuth2AuthorizedClientManager, builder: WebClient.Builder): WebClient = builder.authorisedWebClient(authorizedClientManager, registrationId = "hmpps-prisoner-search-api", url = hmppsPrisonerSearchBaseUri, timeout)
 }

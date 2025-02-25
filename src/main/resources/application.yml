@@ -19,7 +19,6 @@ spring:
         jwt:
           jwk-set-uri: ${hmpps-auth.url}/.well-known/jwks.json
 
-      # TODO: This client section can be removed if your service doesn't call out to other services
       client:
         provider:
           hmpps-auth:
@@ -32,6 +31,13 @@ spring:
             provider: hmpps-auth
             client-id: ${example-api.client.id}
             client-secret: ${example-api.client.secret}
+            authorization-grant-type: client_credentials
+            scope: read
+
+          hmpps-prisoner-search-api:
+            provider: hmpps-auth
+            client-id: ${hmpps-prisoner-search-api.client.id}
+            client-secret: ${hmpps-prisoner-search-api.client.secret}
             authorization-grant-type: client_credentials
             scope: read
 
