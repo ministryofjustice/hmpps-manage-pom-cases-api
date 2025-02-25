@@ -9,6 +9,12 @@ example-api:
     id: "example-api-client"
     secret: "example-api-client-secret"
 
+hmpps-prisoner-search-api:
+  url: "http://localhost:8080"
+  client:
+    id: "prisoner-search-api-client"
+    secret: "prisoner-search-api-client-secret"
+
 spring:
   config:
     import: optional:file:.env.dev[.properties]
