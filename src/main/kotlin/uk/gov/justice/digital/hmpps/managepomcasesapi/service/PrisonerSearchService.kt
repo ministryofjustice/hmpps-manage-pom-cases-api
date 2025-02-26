@@ -7,8 +7,9 @@ import reactor.core.publisher.Mono
 
 @Service
 class PrisonerSearchService(
-  private val prisonerSearchWebClient: WebClient,
+  private val prisonerSearchApiWebClient: WebClient,
 ) {
+
   // Swagger docs: https://prisoner-search.prison.service.justice.gov.uk/swagger-ui/index.html#/Popular/findByPrison
   fun findByPrison(prisonCode: String): List<Prisoner> {
     val results = mutableListOf<Prisoner>()
@@ -16,7 +17,7 @@ class PrisonerSearchService(
     var page = 1
 
     while (moreResultsToRead) {
-      val response = prisonerSearchWebClient.get()
+      val response = prisonerSearchApiWebClient.get()
         .uri("/prisoner-search/prison/{prisonCode}?page={page}", prisonCode, page)
         .retrieve()
         .bodyToMono(PaginatedResponse::class.java)

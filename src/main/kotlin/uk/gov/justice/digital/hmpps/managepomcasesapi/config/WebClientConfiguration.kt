@@ -13,7 +13,7 @@ import java.time.Duration
 class WebClientConfiguration(
   @Value("\${example-api.url}") val exampleApiBaseUri: String,
   @Value("\${hmpps-auth.url}") val hmppsAuthBaseUri: String,
-  @Value("\${hmpps-prisoner-search-api.url}") val hmppsPrisonerSearchBaseUri: String,
+  @Value("\${hmpps-prisoner-search-api.url}") val hmppsPrisonerSearchApiBaseUri: String,
   @Value("\${api.health-timeout:2s}") val healthTimeout: Duration,
   @Value("\${api.timeout:20s}") val timeout: Duration,
 ) {
@@ -31,5 +31,5 @@ class WebClientConfiguration(
   fun exampleApiWebClient(authorizedClientManager: OAuth2AuthorizedClientManager, builder: WebClient.Builder): WebClient = builder.authorisedWebClient(authorizedClientManager, registrationId = "example-api", url = exampleApiBaseUri, timeout)
 
   @Bean
-  fun prisonerSearchWebClient(authorizedClientManager: OAuth2AuthorizedClientManager, builder: WebClient.Builder): WebClient = builder.authorisedWebClient(authorizedClientManager, registrationId = "hmpps-prisoner-search-api", url = hmppsPrisonerSearchBaseUri, timeout)
+  fun prisonerSearchApiWebClient(authorizedClientManager: OAuth2AuthorizedClientManager, builder: WebClient.Builder): WebClient = builder.authorisedWebClient(authorizedClientManager, registrationId = "hmpps-prisoner-search-api", url = hmppsPrisonerSearchApiBaseUri, timeout)
 }
