@@ -6,12 +6,10 @@ api:
     id: "example-api-client"
     secret: "example-api-client-secret"
 
-# example client configuration for calling out to other services
-# TODO: Remove / replace this configuration
-example-api:
+hmpps-prisoner-search-api:
   url: "http://localhost:8080"
 
-hmpps-prisoner-search-api:
+hmpps-prison-api:
   url: "http://localhost:8080"
 
 spring:
