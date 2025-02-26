@@ -7,7 +7,7 @@ import io.swagger.v3.oas.models.info.Info
 import io.swagger.v3.oas.models.security.SecurityRequirement
 import io.swagger.v3.oas.models.security.SecurityScheme
 import io.swagger.v3.oas.models.servers.Server
-import io.swagger.v3.oas.models.tags.Tag
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.info.BuildProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -16,27 +16,26 @@ import org.springframework.context.annotation.Configuration
 class OpenApiConfiguration(buildProperties: BuildProperties) {
   private val version: String = buildProperties.version
 
+  @Value("\${info.app.name}")
+  private lateinit var appName: String
+
+  @Value("\${info.app.team.name}")
+  private lateinit var teamName: String
+
+  @Value("\${info.app.team.email}")
+  private lateinit var teamEmail: String
+
   @Bean
   fun customOpenAPI(): OpenAPI = OpenAPI()
     .servers(
       listOf(
         Server().url("https://manage-pom-cases-api-dev.prison.service.justice.gov.uk").description("Development"),
-        Server().url("https://manage-pom-cases-api-preprod.hmpps.service.justice.gov.uk").description("Pre-Production"),
-        Server().url("https://manage-pom-cases-api.hmpps.service.justice.gov.uk").description("Production"),
         Server().url("http://localhost:8080").description("Local"),
       ),
     )
-    .tags(
-      listOf(
-        // TODO: Remove the Popular and Examples tag and start adding your own tags to group your resources
-        Tag().name("Popular")
-          .description("The most popular endpoints. Look here first when deciding which endpoint to use."),
-        Tag().name("Examples").description("Endpoints for searching for a prisoner within a prison"),
-      ),
-    )
     .info(
-      Info().title("HMPPS Manage Pom Cases Api").version(version)
-        .contact(Contact().name("HMPPS Digital Studio").email("feedback@digital.justice.gov.uk")),
+      Info().title(appName).version(version)
+        .contact(Contact().name(teamName).email(teamEmail)),
     )
     // TODO: Remove the default security schema and start adding your own schemas and roles to describe your
     // service authorisation requirements
@@ -46,7 +45,7 @@ class OpenApiConfiguration(buildProperties: BuildProperties) {
         SecurityScheme().addBearerJwtRequirement("ROLE_TEMPLATE_KOTLIN__UI"),
       ),
     )
-    .addSecurityItem(SecurityRequirement().addList("manage-pom-cases-api-ui-role", listOf("read")))
+    .addSecurityItem(SecurityRequirement().addList("manage-pom-cases-api-ui-role", listOf("read", "write")))
 }
 
 private fun SecurityScheme.addBearerJwtRequirement(role: String): SecurityScheme = type(SecurityScheme.Type.HTTP)
