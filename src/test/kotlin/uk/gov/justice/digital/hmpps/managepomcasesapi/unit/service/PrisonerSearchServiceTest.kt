@@ -9,8 +9,8 @@ import uk.gov.justice.digital.hmpps.managepomcasesapi.service.PrisonerSearchServ
 import uk.gov.justice.digital.hmpps.managepomcasesapi.support.StubbedRequests
 
 class PrisonerSearchServiceTest {
-  private val prisonerSearchWebClient = mock<WebClient>()
-  private val stubbedRequests = StubbedRequests(prisonerSearchWebClient)
+  private val prisonerSearchApiWebClient = mock<WebClient>()
+  private val stubbedRequests = StubbedRequests(prisonerSearchApiWebClient)
 
   @Test
   fun `Searching for prisoners at a given prison returns a list of prisoner details`() {
@@ -46,7 +46,7 @@ class PrisonerSearchServiceTest {
       )
     }
 
-    val prisonerSearch = PrisonerSearchService(prisonerSearchWebClient)
+    val prisonerSearch = PrisonerSearchService(prisonerSearchApiWebClient)
     val results = prisonerSearch.findByPrison("LEI")
     Assertions.assertEquals(4, results.size)
     Assertions.assertEquals(listOf("GAX123", "GAX456", "GAX789", "GAX101112"), results.map { it.prisonerNumber })
