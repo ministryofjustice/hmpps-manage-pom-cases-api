@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.WebClientResponseException
 import reactor.core.publisher.Mono
+import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.CaseData
 
 @Service
 class PrisonerSearchService(
@@ -11,8 +12,8 @@ class PrisonerSearchService(
 ) {
 
   // Swagger docs: https://prisoner-search.prison.service.justice.gov.uk/swagger-ui/index.html#/Popular/findByPrison
-  fun findByPrison(prisonCode: String): List<Prisoner> {
-    val results = mutableListOf<Prisoner>()
+  fun findByPrison(prisonCode: String): List<CaseData> {
+    val results = mutableListOf<CaseData>()
     var moreResultsToRead = true
     var page = 1
 
@@ -35,14 +36,11 @@ class PrisonerSearchService(
     return results
   }
 
-  data class Prisoner(
-    val prisonerNumber: String,
-  )
   data class PaginatedResponse(
     val totalElements: Int,
     val totalPages: Int,
     val first: Boolean,
     val last: Boolean,
-    val content: List<Prisoner>,
+    val content: List<CaseData>,
   )
 }

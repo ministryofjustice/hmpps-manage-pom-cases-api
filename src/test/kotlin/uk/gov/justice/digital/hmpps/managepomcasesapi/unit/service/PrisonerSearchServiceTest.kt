@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.springframework.web.reactive.function.client.WebClient
+import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.CaseData
 import uk.gov.justice.digital.hmpps.managepomcasesapi.service.PrisonerSearchService
 import uk.gov.justice.digital.hmpps.managepomcasesapi.service.PrisonerSearchService.PaginatedResponse
 import uk.gov.justice.digital.hmpps.managepomcasesapi.support.StubbedRequests
@@ -21,9 +22,9 @@ class PrisonerSearchServiceTest {
         first = true,
         last = false,
         content = listOf(
-          PrisonerSearchService.Prisoner(prisonerNumber = "GAX123"),
-          PrisonerSearchService.Prisoner(prisonerNumber = "GAX456"),
-          PrisonerSearchService.Prisoner(prisonerNumber = "GAX789"),
+          CaseData(prisonerNumber = "GAX123"),
+          CaseData(prisonerNumber = "GAX456"),
+          CaseData(prisonerNumber = "GAX789"),
         ),
       ),
       PaginatedResponse(
@@ -32,7 +33,7 @@ class PrisonerSearchServiceTest {
         first = false,
         last = true,
         content = listOf(
-          PrisonerSearchService.Prisoner(prisonerNumber = "GAX101112"),
+          CaseData(prisonerNumber = "GAX101112"),
         ),
       ),
     )
