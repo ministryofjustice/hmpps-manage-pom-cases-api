@@ -20,7 +20,7 @@ class ForPrisonTests {
         CaseData(prisonerNumber = "ABC789", legalStatus = "RECALL"),
         CaseData(prisonerNumber = "DEF123", legalStatus = "IMMIGRATION_DETAINEE"),
         CaseData(prisonerNumber = "DEF456", legalStatus = "INVALID"),
-      )
+      ),
     )
 
     val results = MpcCases(prisonerSearchService).forPrison("LEI")
@@ -36,12 +36,11 @@ class ForPrisonTests {
         CaseData(prisonerNumber = "ABC123", imprisonmentStatus = "A_FINE", legalStatus = "SENTENCED"),
         CaseData(prisonerNumber = "ABC456", legalStatus = "SENTENCED"),
         CaseData(prisonerNumber = "ABC789", legalStatus = "SENTENCED"),
-      )
+      ),
     )
 
     val results = MpcCases(prisonerSearchService).forPrison("LEI")
     Assertions.assertEquals(results.size, 2)
     Assertions.assertEquals(results.map { it.prisonerNumber }, listOf("ABC456", "ABC789"))
   }
-
 }
