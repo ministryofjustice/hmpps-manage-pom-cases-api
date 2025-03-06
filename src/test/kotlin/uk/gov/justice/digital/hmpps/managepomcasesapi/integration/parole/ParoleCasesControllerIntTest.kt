@@ -62,7 +62,6 @@ class ParoleCasesControllerIntTest : IntegrationTestBase() {
 
     @Test
     fun `should return OK`() {
-      prisonApi.stubUncheckedPrisonerSearchResponse()
       webTestClient.get()
         .uri("/parole-cases/upcoming/{prisonCode}", "LEI")
         .headers(setAuthorisation(roles = listOf("ROLE_MANAGE_POM_CASES__MANAGE_POM_CASES_UI")))

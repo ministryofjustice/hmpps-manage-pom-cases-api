@@ -21,6 +21,12 @@ class WebClientConfiguration(
   fun hmppsAuthHealthWebClient(builder: WebClient.Builder): WebClient = builder.healthWebClient(hmppsAuthBaseUri, healthTimeout)
 
   @Bean
+  fun prisonApiHealthWebClient(builder: WebClient.Builder): WebClient = builder.healthWebClient(hmppsPrisonApiBaseUri, healthTimeout)
+
+  @Bean
+  fun prisonerSearchApiHealthWebClient(builder: WebClient.Builder): WebClient = builder.healthWebClient(hmppsPrisonerSearchApiBaseUri, healthTimeout)
+
+  @Bean
   fun prisonApiWebClient(authorizedClientManager: OAuth2AuthorizedClientManager, builder: WebClient.Builder): WebClient = builder.authorisedWebClient(authorizedClientManager, registrationId = "hmpps-prison-api", url = hmppsPrisonApiBaseUri, timeout)
 
   @Bean

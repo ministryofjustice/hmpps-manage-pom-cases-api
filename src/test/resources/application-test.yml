@@ -9,10 +9,10 @@ hmpps-auth:
   url: "${HMPPS_AUTH_URL:http://localhost:8090/auth}"
 
 hmpps-prisoner-search-api:
-  url: "http://localhost:8090"
+  url: "http://localhost:8092/prisoner-search-api"
 
 hmpps-prison-api:
-  url: "http://localhost:8090"
+  url: "http://localhost:8092/prison-api"
 
 spring:
   config:
