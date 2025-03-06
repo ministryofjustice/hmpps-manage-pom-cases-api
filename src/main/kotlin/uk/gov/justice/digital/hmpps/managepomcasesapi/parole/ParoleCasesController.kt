@@ -20,14 +20,14 @@ import uk.gov.justice.hmpps.kotlin.common.ErrorResponse
 class ParoleCasesController(
   private val paroleCasesService: ParoleCasesService,
 ) {
-  @GetMapping(value = ["/upcoming"])
+  @GetMapping(value = ["/upcoming/{prisonCode}"])
   @ResponseStatus(code = HttpStatus.OK)
   @Operation(
-    summary = "Get all parole reviews",
-    description = "Get all parole reviews",
+    summary = "Get case details for cases with upcoming parole reviews",
+    description = "Get case details for cases with upcoming parole reviews",
     security = [SecurityRequirement(name = "manage-pom-cases-api-ui-role")],
     responses = [
-      ApiResponse(responseCode = "200", description = "A list of local delivery unit mailboxes"),
+      ApiResponse(responseCode = "200", description = "A list of cases with upcoming parole reviews"),
       ApiResponse(
         responseCode = "401",
         description = "Unauthorized access to this endpoint",
