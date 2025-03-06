@@ -7,14 +7,14 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 
 @Component
-class EvictMpcCasesCacheTask {
+class MpcCasesServiceEvictCacheTask {
   companion object {
     val LOG: Logger = LoggerFactory.getLogger(this::class.java)
   }
 
   // every ten minutes
   @Scheduled(fixedDelay = 600000)
-  @CacheEvict(value = ["MpcCases.forPrison"], allEntries = true)
+  @CacheEvict(value = ["MpcCasesService.forPrison"], allEntries = true)
   fun evictMpcCasesCache() {
     LOG.info("Evicting MPC Cases caches")
   }

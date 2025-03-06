@@ -8,7 +8,7 @@ import uk.gov.justice.digital.hmpps.managepomcasesapi.allocations.AllocatedCase
 import uk.gov.justice.digital.hmpps.managepomcasesapi.allocations.AllocatedCasesService
 import uk.gov.justice.digital.hmpps.managepomcasesapi.allocations.AllocationHistory
 import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.CaseData
-import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.MpcCases
+import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.MpcCasesService
 import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleCasesService
 import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleReview
 import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleReviewRepository
@@ -21,7 +21,7 @@ class UpcomingParoleCasesTest {
     CaseData(prisonerNumber = "ABC456"),
   )
 
-  private val mpcCases = mock<MpcCases>()
+  private val mpcCasesService = mock<MpcCasesService>()
   private val allocatedCasesService = mock<AllocatedCasesService>()
   private val paroleReviewsRepository = mock<ParoleReviewRepository>()
 
@@ -30,7 +30,7 @@ class UpcomingParoleCasesTest {
     allocationCasesResults: List<AllocatedCase> = listOf(),
     paroleReviewResults: List<ParoleReview> = listOf(),
   ) {
-    Mockito.`when`(mpcCases.forPrison("LEI")).thenReturn(caseResults)
+    Mockito.`when`(mpcCasesService.forPrison("LEI")).thenReturn(caseResults)
 
     Mockito.`when`(allocatedCasesService.forPrison("LEI"))
       .thenReturn(allocationCasesResults)
@@ -49,7 +49,8 @@ class UpcomingParoleCasesTest {
       paroleReviewResults = listOf(),
     )
 
-    val results = ParoleCasesService(mpcCases, allocatedCasesService, paroleReviewsRepository).upcomingAt("LEI")
+    val results = ParoleCasesService(mpcCasesService, allocatedCasesService, paroleReviewsRepository)
+      .upcomingAt("LEI")
     Assertions.assertEquals(0, results.size)
   }
 
@@ -63,7 +64,8 @@ class UpcomingParoleCasesTest {
       ),
     )
 
-    val results = ParoleCasesService(mpcCases, allocatedCasesService, paroleReviewsRepository).upcomingAt("LEI")
+    val results = ParoleCasesService(mpcCasesService, allocatedCasesService, paroleReviewsRepository)
+      .upcomingAt("LEI")
     Assertions.assertEquals(0, results.size)
   }
 
@@ -80,7 +82,8 @@ class UpcomingParoleCasesTest {
       ),
     )
 
-    val results = ParoleCasesService(mpcCases, allocatedCasesService, paroleReviewsRepository).upcomingAt("LEI")
+    val results = ParoleCasesService(mpcCasesService, allocatedCasesService, paroleReviewsRepository)
+      .upcomingAt("LEI")
     Assertions.assertEquals(0, results.size)
   }
 
@@ -97,7 +100,8 @@ class UpcomingParoleCasesTest {
       ),
     )
 
-    val results = ParoleCasesService(mpcCases, allocatedCasesService, paroleReviewsRepository).upcomingAt("LEI")
+    val results = ParoleCasesService(mpcCasesService, allocatedCasesService, paroleReviewsRepository)
+      .upcomingAt("LEI")
 
     Assertions.assertEquals(1, results.size)
     Assertions.assertEquals("ABC123", results.first().caseId)

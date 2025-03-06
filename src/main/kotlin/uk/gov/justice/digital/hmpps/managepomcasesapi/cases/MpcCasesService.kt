@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service
 import uk.gov.justice.digital.hmpps.managepomcasesapi.service.PrisonerSearchService
 
 @Service
-class MpcCases(
+class MpcCasesService(
   private val prisonerSearchService: PrisonerSearchService,
 ) {
-  @Cacheable("MpcCases.forPrison")
+  @Cacheable("MpcCasesService.forPrison")
   fun forPrison(prisonCode: String): List<CaseData> = prisonerSearchService
     .findByPrison(prisonCode)
     .filterNot { REJECTED_IMPRISONMENT_STATUSES.contains(it.imprisonmentStatus) }
