@@ -1,4 +1,4 @@
-package uk.gov.justice.digital.hmpps.managepomcasesapi.unit.parole.parolecases
+package uk.gov.justice.digital.hmpps.managepomcasesapi.unit.parole.parolecasesservice
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -9,7 +9,7 @@ import uk.gov.justice.digital.hmpps.managepomcasesapi.allocations.AllocatedCases
 import uk.gov.justice.digital.hmpps.managepomcasesapi.allocations.AllocationHistory
 import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.CaseData
 import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.MpcCases
-import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleCases
+import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleCasesService
 import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleReview
 import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleReviewRepository
 import java.time.LocalDate
@@ -49,7 +49,7 @@ class UpcomingParoleCasesTest {
       paroleReviewResults = listOf(),
     )
 
-    val results = ParoleCases(mpcCases, allocatedCases, paroleReviewsRepository).upcomingAt("LEI")
+    val results = ParoleCasesService(mpcCases, allocatedCases, paroleReviewsRepository).upcomingAt("LEI")
     Assertions.assertEquals(0, results.size)
   }
 
@@ -63,7 +63,7 @@ class UpcomingParoleCasesTest {
       ),
     )
 
-    val results = ParoleCases(mpcCases, allocatedCases, paroleReviewsRepository).upcomingAt("LEI")
+    val results = ParoleCasesService(mpcCases, allocatedCases, paroleReviewsRepository).upcomingAt("LEI")
     Assertions.assertEquals(0, results.size)
   }
 
@@ -80,7 +80,7 @@ class UpcomingParoleCasesTest {
       ),
     )
 
-    val results = ParoleCases(mpcCases, allocatedCases, paroleReviewsRepository).upcomingAt("LEI")
+    val results = ParoleCasesService(mpcCases, allocatedCases, paroleReviewsRepository).upcomingAt("LEI")
     Assertions.assertEquals(0, results.size)
   }
 
@@ -97,7 +97,7 @@ class UpcomingParoleCasesTest {
       ),
     )
 
-    val results = ParoleCases(mpcCases, allocatedCases, paroleReviewsRepository).upcomingAt("LEI")
+    val results = ParoleCasesService(mpcCases, allocatedCases, paroleReviewsRepository).upcomingAt("LEI")
 
     Assertions.assertEquals(1, results.size)
     Assertions.assertEquals("ABC123", results.first().caseId)

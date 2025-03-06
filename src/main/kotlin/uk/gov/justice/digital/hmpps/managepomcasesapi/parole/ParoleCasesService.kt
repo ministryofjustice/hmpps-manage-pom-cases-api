@@ -5,7 +5,7 @@ import uk.gov.justice.digital.hmpps.managepomcasesapi.allocations.AllocatedCases
 import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.MpcCases
 
 @Service
-class ParoleCases(
+class ParoleCasesService(
   private val mpcCases: MpcCases,
   private val allocatedCases: AllocatedCases,
   private val paroleReviewsRepository: ParoleReviewRepository,

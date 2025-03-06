@@ -18,7 +18,7 @@ import uk.gov.justice.hmpps.kotlin.common.ErrorResponse
 @PreAuthorize("hasRole('ROLE_TEMPLATE_KOTLIN__UI')")
 @RequestMapping(value = ["/parole-cases"], produces = ["application/json"])
 class ParoleCasesController(
-  private val paroleCases: ParoleCases,
+  private val paroleCasesService: ParoleCasesService,
 ) {
   @GetMapping(value = ["/upcoming"])
   @ResponseStatus(code = HttpStatus.OK)
@@ -40,5 +40,5 @@ class ParoleCasesController(
       ),
     ],
   )
-  fun upcoming(@PathVariable(name = "prisonCode") prisonCode: String): List<UpcomingParoleCase> = paroleCases.upcomingAt(prisonCode)
+  fun upcoming(@PathVariable(name = "prisonCode") prisonCode: String): List<UpcomingParoleCase> = paroleCasesService.upcomingAt(prisonCode)
 }
