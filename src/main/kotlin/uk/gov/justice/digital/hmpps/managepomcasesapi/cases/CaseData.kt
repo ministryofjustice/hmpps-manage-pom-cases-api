@@ -17,7 +17,6 @@ class CaseData(
   val lastName: String = "",
   val dateOfBirth: LocalDate? = null,
   val gender: String = "",
-  val gender2: String = "",
 
   // Status flags
 
