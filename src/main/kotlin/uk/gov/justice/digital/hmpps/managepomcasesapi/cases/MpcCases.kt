@@ -1,5 +1,6 @@
 package uk.gov.justice.digital.hmpps.managepomcasesapi.cases
 
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import uk.gov.justice.digital.hmpps.managepomcasesapi.service.PrisonerSearchService
 
@@ -7,6 +8,7 @@ import uk.gov.justice.digital.hmpps.managepomcasesapi.service.PrisonerSearchServ
 class MpcCases(
   private val prisonerSearchService: PrisonerSearchService,
 ) {
+  @Cacheable("MpcCases.forPrison")
   fun forPrison(prisonCode: String): List<CaseData> = prisonerSearchService
     .findByPrison(prisonCode)
     .filterNot { REJECTED_IMPRISONMENT_STATUSES.contains(it.imprisonmentStatus) }
