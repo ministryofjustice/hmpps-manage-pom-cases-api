@@ -10,7 +10,6 @@ import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.CaseData
 class PrisonerSearchService(
   private val prisonerSearchApiWebClient: WebClient,
 ) {
-
   // Swagger docs: https://prisoner-search.prison.service.justice.gov.uk/swagger-ui/index.html#/Popular/findByPrison
   fun findByPrison(prisonCode: String): List<CaseData> {
     val results = mutableListOf<CaseData>()

@@ -3,15 +3,23 @@ package uk.gov.justice.digital.hmpps.managepomcasesapi.unit.parole.parolecase
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
+import org.mockito.kotlin.mock
+import uk.gov.justice.digital.hmpps.managepomcasesapi.allocations.AllocatedCase
+import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.CaseData
 import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleCase
+import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleReview
 import java.time.LocalDate
 
-class ApproachingParoleTests {
+class SelectingUpcomingParoleTests {
+
+  private var caseData = mock<CaseData>()
+  private var paroleReview = mock<ParoleReview>()
+  private val allocatedCase = mock<AllocatedCase>()
 
   @Test
   fun `Not approaching parole when neither THD, TED or PED are set`() {
-    val paroleCase = ParoleCase()
-    assert(!paroleCase.approachingParole())
+    val paroleCase = ParoleCase(caseData, paroleReview, allocatedCase)
+    assert(!paroleCase.upcomingReview())
   }
 
   @ParameterizedTest
@@ -33,12 +41,16 @@ class ApproachingParoleTests {
     )
     dates[field] = LocalDate.now().plusDays(daysFromNow)
 
-    val paroleCase = ParoleCase(
-      dates["targetHearingDate"],
-      dates["paroleEligibilityDate"],
-      dates["tariffEndDate"],
+    caseData = CaseData(
+      tariffDate = dates["tariffEndDate"],
+      paroleEligibilityDate = dates["paroleEligibilityDate"],
     )
-    assert(!paroleCase.approachingParole())
+    paroleReview = ParoleReview(
+      targetHearingDate = dates["targetHearingDate"],
+    )
+
+    val paroleCase = ParoleCase(caseData, paroleReview, allocatedCase)
+    assert(!paroleCase.upcomingReview())
   }
 
   @ParameterizedTest
@@ -63,11 +75,16 @@ class ApproachingParoleTests {
     )
     dates[field] = LocalDate.now().plusMonths(monthsFromNow)
 
-    val paroleCase = ParoleCase(
-      dates["targetHearingDate"],
-      dates["paroleEligibilityDate"],
-      dates["tariffEndDate"],
+    caseData = CaseData(
+      tariffDate = dates["tariffEndDate"],
+      paroleEligibilityDate = dates["paroleEligibilityDate"],
     )
-    assert(paroleCase.approachingParole())
+    paroleReview = ParoleReview(
+      targetHearingDate = dates["targetHearingDate"],
+    )
+
+    val paroleCase = ParoleCase(caseData, paroleReview, allocatedCase)
+
+    assert(paroleCase.upcomingReview())
   }
 }

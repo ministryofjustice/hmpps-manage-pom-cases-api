@@ -4,19 +4,15 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
-import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Index
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 import jakarta.validation.constraints.NotNull
 import org.hibernate.annotations.ColumnDefault
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
-import uk.gov.justice.digital.hmpps.managepomcasesapi.offenders.Offender
 import java.time.Instant
 
 enum class TierType(val tier: String) {
@@ -57,73 +53,72 @@ enum class RecommendedPomType(val recommendation: String) {
     Index(name = "index_allocation_versions_secondary_pom_nomis_id", columnList = "secondary_pom_nomis_id"),
   ],
 )
-class AllocationHistory {
+class AllocationHistory(
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @ColumnDefault("nextval('allocation_history_id_seq')")
   @Column(name = "id", nullable = false)
-  var id: Long? = null
+  var id: Long? = null,
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "nomis_offender_id", referencedColumnName = "nomis_offender_id")
-  var offender: Offender? = null
+  @Column(name = "nomis_offender_id")
+  var caseId: String? = null,
 
   @Column(name = "prison")
-  var prison: String? = null
+  var prison: String? = null,
 
   @Enumerated(EnumType.STRING)
   @Column(name = "allocated_at_tier")
-  var allocatedAtTier: TierType? = null
+  var allocatedAtTier: TierType? = null,
 
   @Column(name = "override_reasons")
-  var overrideReasons: String? = null
+  var overrideReasons: String? = null,
 
   @Column(name = "override_detail")
-  var overrideDetail: String? = null
+  var overrideDetail: String? = null,
 
   @Column(name = "message")
-  var message: String? = null
+  var message: String? = null,
 
   @Column(name = "suitability_detail")
-  var suitabilityDetail: String? = null
+  var suitabilityDetail: String? = null,
 
   @Column(name = "primary_pom_name")
-  var primaryPomName: String? = null
+  var primaryPomName: String? = null,
 
   @Column(name = "secondary_pom_name")
-  var secondaryPomName: String? = null
+  var secondaryPomName: String? = null,
 
   @Column(name = "created_by_name")
-  var createdByName: String? = null
+  var createdByName: String? = null,
 
   @Column(name = "primary_pom_nomis_id")
-  var primaryPomNomisId: Int? = null
+  var primaryPomNomisId: Int? = null,
 
   @Column(name = "secondary_pom_nomis_id")
-  var secondaryPomNomisId: Int? = null
+  var secondaryPomNomisId: Int? = null,
 
   @Enumerated
   @Column(name = "event")
-  var event: EventType? = null
+  var event: EventType? = null,
 
   @Enumerated
   @Column(name = "event_trigger")
-  var eventTrigger: EventTriggerType? = null
+  var eventTrigger: EventTriggerType? = null,
 
   @NotNull
   @CreationTimestamp
   @Column(name = "created_at", nullable = false)
-  var createdAt: Instant? = null
+  var createdAt: Instant? = null,
 
   @NotNull
   @UpdateTimestamp
   @Column(name = "updated_at", nullable = false)
-  var updatedAt: Instant? = null
+  var updatedAt: Instant? = null,
 
   @Column(name = "primary_pom_allocated_at")
-  var primaryPomAllocatedAt: Instant? = null
+  var primaryPomAllocatedAt: Instant? = null,
 
   @Enumerated(EnumType.STRING)
   @Column(name = "recommended_pom_type")
-  var recommendedPomType: RecommendedPomType? = null
-}
+  var recommendedPomType: RecommendedPomType? = null,
+)
