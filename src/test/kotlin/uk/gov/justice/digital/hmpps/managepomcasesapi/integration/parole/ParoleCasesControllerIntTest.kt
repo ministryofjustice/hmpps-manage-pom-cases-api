@@ -8,6 +8,7 @@ import org.springframework.core.ParameterizedTypeReference
 import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.IntegrationTestBase
 import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.HmppsAuthApiExtension.Companion.hmppsAuth
 import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.PrisonApiExtension.Companion.prisonApi
+import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.PrisonerSearchApiExtension.Companion.prisonerSearchApi
 import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.UpcomingParoleCase
 
 class ParoleCasesControllerIntTest : IntegrationTestBase() {
@@ -18,7 +19,7 @@ class ParoleCasesControllerIntTest : IntegrationTestBase() {
     @BeforeEach
     fun stubPrisonApi() {
       hmppsAuth.stubGrantToken()
-      prisonApi.stubUncheckedPrisonerSearchResponse()
+      prisonerSearchApi.stubUncheckedPrisonerSearchResponse()
     }
 
     @Test
