@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 import uk.gov.justice.hmpps.kotlin.common.ErrorResponse
 
 @RestController
-@PreAuthorize("hasRole('ROLE_TEMPLATE_KOTLIN__UI')")
+@PreAuthorize("hasRole('ROLE_MANAGE_POM_CASES__MANAGE_POM_CASES_UI')")
 @RequestMapping(value = ["/parole-reviews"], produces = ["application/json"])
 class ParoleReviewController(
   private val service: ParoleReviewService,

@@ -51,7 +51,7 @@ class ParoleReviewControllerIntTest : IntegrationTestBase() {
     fun `should return OK`() {
       val reviews = webTestClient.get()
         .uri("/parole-reviews")
-        .headers(setAuthorisation(roles = listOf("ROLE_TEMPLATE_KOTLIN__UI")))
+        .headers(setAuthorisation(roles = listOf("ROLE_MANAGE_POM_CASES__MANAGE_POM_CASES_UI")))
         .exchange()
         .expectStatus().isOk
         .expectBody(object : ParameterizedTypeReference<List<ParoleReview>>() {})

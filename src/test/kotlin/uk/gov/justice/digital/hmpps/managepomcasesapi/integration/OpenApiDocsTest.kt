@@ -86,7 +86,7 @@ class OpenApiDocsTest : IntegrationTestBase() {
   }
 
   @ParameterizedTest
-  @CsvSource(value = ["manage-pom-cases-api-ui-role, ROLE_TEMPLATE_KOTLIN__UI"])
+  @CsvSource(value = ["manage-pom-cases-api-ui-role, ROLE_MANAGE_POM_CASES__MANAGE_POM_CASES_UI"])
   fun `the security scheme is setup for bearer tokens`(key: String, role: String) {
     webTestClient.get()
       .uri("/v3/api-docs")
