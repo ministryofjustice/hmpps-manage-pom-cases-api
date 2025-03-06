@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.mockito.kotlin.mock
 import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.CaseData
-import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.MpcCases
+import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.MpcCasesService
 import uk.gov.justice.digital.hmpps.managepomcasesapi.service.PrisonerSearchService
 
 class ForPrisonTests {
@@ -23,7 +23,7 @@ class ForPrisonTests {
       ),
     )
 
-    val results = MpcCases(prisonerSearchService).forPrison("LEI")
+    val results = MpcCasesService(prisonerSearchService).forPrison("LEI")
     Assertions.assertEquals(results.size, 4)
     Assertions.assertEquals(results.map { it.prisonerNumber }, listOf("ABC123", "ABC456", "ABC789", "DEF123"))
   }
@@ -39,7 +39,7 @@ class ForPrisonTests {
       ),
     )
 
-    val results = MpcCases(prisonerSearchService).forPrison("LEI")
+    val results = MpcCasesService(prisonerSearchService).forPrison("LEI")
     Assertions.assertEquals(results.size, 2)
     Assertions.assertEquals(results.map { it.prisonerNumber }, listOf("ABC456", "ABC789"))
   }

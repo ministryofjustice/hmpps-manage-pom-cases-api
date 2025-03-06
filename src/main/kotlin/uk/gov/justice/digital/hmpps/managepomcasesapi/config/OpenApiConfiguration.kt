@@ -42,7 +42,7 @@ class OpenApiConfiguration(buildProperties: BuildProperties) {
     .components(
       Components().addSecuritySchemes(
         "manage-pom-cases-api-ui-role",
-        SecurityScheme().addBearerJwtRequirement("ROLE_TEMPLATE_KOTLIN__UI"),
+        SecurityScheme().addBearerJwtRequirement("ROLE_MANAGE_POM_CASES__MANAGE_POM_CASES_UI"),
       ),
     )
     .addSecurityItem(SecurityRequirement().addList("manage-pom-cases-api-ui-role", listOf("read", "write")))

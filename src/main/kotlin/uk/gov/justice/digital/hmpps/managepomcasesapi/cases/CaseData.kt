@@ -1,11 +1,10 @@
 package uk.gov.justice.digital.hmpps.managepomcasesapi.cases
 
+import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.types.NomisId
 import java.time.LocalDate
 
 class CaseData(
-  // Ids
-
-  val prisonerNumber: String = "",
+  val prisonerNumber: NomisId = "",
   val bookingId: String = "",
   val prisonId: String = "",
   val supportingPrisonId: String = "",
@@ -62,4 +61,7 @@ class CaseData(
   val tariffDate: LocalDate? = null,
   val releaseOnTemporaryLicenceDate: LocalDate? = null,
   val dischargeDate: LocalDate? = null,
-)
+) {
+  val caseId = prisonerNumber
+  val fullName = "$firstName $lastName"
+}
