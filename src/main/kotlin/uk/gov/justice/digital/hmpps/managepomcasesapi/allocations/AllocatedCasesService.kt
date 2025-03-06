@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service
 import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.MpcCases
 
 @Service
-class AllocatedCases(
+class AllocatedCasesService(
   private val mpcCases: MpcCases,
   private val allocationHistoryRepository: AllocationHistoryRepository,
 ) {
