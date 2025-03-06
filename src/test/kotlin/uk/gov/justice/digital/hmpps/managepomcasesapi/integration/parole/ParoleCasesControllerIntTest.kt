@@ -72,5 +72,4 @@ class ParoleCasesControllerIntTest : IntegrationTestBase() {
         .returnResult()
     }
   }
-
 }
