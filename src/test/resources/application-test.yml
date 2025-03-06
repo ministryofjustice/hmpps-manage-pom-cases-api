@@ -12,7 +12,7 @@ hmpps-prisoner-search-api:
   url: "http://localhost:8092/prisoner-search-api"
 
 hmpps-prison-api:
-  url: "http://localhost:8092/prison-api"
+  url: "http://localhost:8093/prison-api"
 
 spring:
   config:

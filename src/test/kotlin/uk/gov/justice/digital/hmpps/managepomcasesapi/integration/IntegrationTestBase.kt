@@ -13,9 +13,11 @@ import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.Hmpps
 import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.HmppsAuthApiExtension.Companion.hmppsAuth
 import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.PrisonApiExtension
 import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.PrisonApiExtension.Companion.prisonApi
+import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.PrisonerSearchApiExtension
+import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.PrisonerSearchApiExtension.Companion.prisonerSearchApi
 import uk.gov.justice.hmpps.test.kotlin.auth.JwtAuthorisationHelper
 
-@ExtendWith(HmppsAuthApiExtension::class, ExampleApiExtension::class, PrisonApiExtension::class)
+@ExtendWith(HmppsAuthApiExtension::class, ExampleApiExtension::class, PrisonApiExtension::class, PrisonerSearchApiExtension::class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles("test")
 abstract class IntegrationTestBase {
@@ -36,6 +38,6 @@ abstract class IntegrationTestBase {
     hmppsAuth.stubHealthPing(status)
     exampleApi.stubHealthPing(status)
     prisonApi.stubHealthPing(status)
-    prisonApi.stubPrisonerSearchHealthPing(status)
+    prisonerSearchApi.stubHealthPing(status)
   }
 }
