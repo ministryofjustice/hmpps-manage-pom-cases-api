@@ -1,5 +1,7 @@
 package uk.gov.justice.digital.hmpps.managepomcasesapi.service
 
+import org.springframework.http.HttpHeaders
+import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.WebClientResponseException
@@ -14,11 +16,14 @@ class PrisonerSearchService(
   fun findByPrison(prisonCode: String): List<CaseData> {
     val results = mutableListOf<CaseData>()
     var moreResultsToRead = true
-    var page = 1
+    var page = 0 // Zero-based page index
+    val size = 1000 // The size of the page to be returned
 
     while (moreResultsToRead) {
       val response = prisonerSearchApiWebClient.get()
-        .uri("/prisoner-search/prison/{prisonCode}?page={page}", prisonCode, page)
+        .uri("/prisoner-search/prison/{prisonCode}?page={page}&size={size}", prisonCode, page, size)
+        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
         .retrieve()
         .bodyToMono(PaginatedResponse::class.java)
         .onErrorResume(WebClientResponseException.NotFound::class.java) { Mono.empty() }

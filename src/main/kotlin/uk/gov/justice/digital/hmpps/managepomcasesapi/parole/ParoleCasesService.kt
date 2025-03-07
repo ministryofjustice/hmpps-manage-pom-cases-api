@@ -15,8 +15,6 @@ class ParoleCasesService(
     val allocatedCases = allocatedCasesService.forPrison(prisonCode).associateBy { it.caseId }
     val paroleReviews = paroleReviewsRepository.findByCaseIdIn(allocatedCases.keys.toList())
 
-    print(allocatedCases)
-
     return paroleReviews
       .map {
         ParoleCase(

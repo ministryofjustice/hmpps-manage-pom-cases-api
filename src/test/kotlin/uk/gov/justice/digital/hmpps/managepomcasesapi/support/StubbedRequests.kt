@@ -14,6 +14,7 @@ class StubbedRequests(private val webClient: WebClient) {
 
     Mockito.`when`(webClient.get()).thenReturn(requestBodyUriSpec)
     Mockito.`when`(requestBodyUriSpec.uri(path, params)).thenReturn(requestBodySpec)
+    Mockito.`when`(requestBodySpec.header(Mockito.anyString(), Mockito.anyString())).thenReturn(requestBodySpec)
     Mockito.`when`(requestBodySpec.retrieve()).thenReturn(responseSpec)
     Mockito.`when`(responseSpec.bodyToMono(response::class.java)).thenReturn(Mono.just(response))
   }
