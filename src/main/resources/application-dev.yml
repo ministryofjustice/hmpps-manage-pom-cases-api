@@ -3,14 +3,14 @@ hmpps-auth:
 
 api:
   client:
-    id: "example-api-client"
-    secret: "example-api-client-secret"
+    id: "${API_CLIENT_ID}"
+    secret: "${API_CLIENT_SECRET}"
 
 hmpps-prisoner-search-api:
-  url: "http://localhost:8080"
+  url: "${HMPPS_PRISONER_SEARCH_API_URL:http://localhost:8080}"
 
 hmpps-prison-api:
-  url: "http://localhost:8080"
+  url: "${HMPPS_PRISON_API_URL:http://localhost:8080}"
 
 spring:
   config:
