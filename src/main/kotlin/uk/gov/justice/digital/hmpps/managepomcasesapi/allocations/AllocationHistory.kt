@@ -1,7 +1,6 @@
 package uk.gov.justice.digital.hmpps.managepomcasesapi.allocations
 
 import jakarta.persistence.Column
-import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
@@ -14,7 +13,6 @@ import jakarta.validation.constraints.NotNull
 import org.hibernate.annotations.ColumnDefault
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
-import uk.gov.justice.digital.hmpps.managepomcasesapi.data.RecommendedPomTypeAttributeConverter
 import java.time.Instant
 
 enum class TierType(val tier: String) {
@@ -38,11 +36,6 @@ enum class EventTriggerType {
   USER,
   OFFENDER_TRANSFERRED,
   OFFENDER_RELEASED,
-}
-
-enum class RecommendedPomType(val recommendation: String) {
-  PROBATION("probation"),
-  PRISON("prison"),
 }
 
 @Entity
@@ -120,7 +113,6 @@ class AllocationHistory(
   @Column(name = "primary_pom_allocated_at")
   var primaryPomAllocatedAt: Instant? = null,
 
-  @Convert(converter = RecommendedPomTypeAttributeConverter::class)
   @Column(name = "recommended_pom_type")
-  var recommendedPomType: RecommendedPomType? = null,
+  var recommendedPomType: String? = null,
 )
