@@ -1,6 +1,7 @@
 package uk.gov.justice.digital.hmpps.managepomcasesapi.support
 
 import org.mockito.Mockito
+import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
@@ -16,6 +17,6 @@ class StubbedRequests(private val webClient: WebClient) {
     Mockito.`when`(requestBodyUriSpec.uri(path, params)).thenReturn(requestBodySpec)
     Mockito.`when`(requestBodySpec.header(Mockito.anyString(), Mockito.anyString())).thenReturn(requestBodySpec)
     Mockito.`when`(requestBodySpec.retrieve()).thenReturn(responseSpec)
-    Mockito.`when`(responseSpec.bodyToMono(response::class.java)).thenReturn(Mono.just(response))
+    Mockito.`when`(responseSpec.bodyToMono(any<Class<T>>())).thenReturn(Mono.just(response))
   }
 }
