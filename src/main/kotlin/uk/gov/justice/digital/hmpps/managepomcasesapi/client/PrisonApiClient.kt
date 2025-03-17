@@ -29,8 +29,12 @@ class PrisonApiClient(@Qualifier("prisonApiWebClient") private val webClient: We
     .retrieve()
     .bodyToMono(Boolean::class.java)
     .onErrorResume { e ->
-      LOG.error("hasPomRole: ${e.message}")
-      Mono.just(false)
+      LOG.error("hasPomRole: {}", e.message)
+      if (e is WebClientResponseException.NotFound) {
+        Mono.just(false)
+      } else {
+        Mono.error(e)
+      }
     }
     .block()!!
 

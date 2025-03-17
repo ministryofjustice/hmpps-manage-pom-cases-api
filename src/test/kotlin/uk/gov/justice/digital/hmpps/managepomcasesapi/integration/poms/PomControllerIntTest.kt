@@ -53,7 +53,7 @@ class PomControllerIntTest : IntegrationTestBase() {
 
     @Test
     fun `should return true if staff member is a POM in the prison`() {
-      prisonApi.stubHasPomRoleResponse("true")
+      prisonApi.stubHasPomRoleResponse(200, "true")
 
       webTestClient.get()
         .uri(POM_URI, 12345, "LEI")
@@ -67,7 +67,7 @@ class PomControllerIntTest : IntegrationTestBase() {
 
     @Test
     fun `should return false if staff member is not a POM in the prison`() {
-      prisonApi.stubHasPomRoleResponse("false")
+      prisonApi.stubHasPomRoleResponse(200, "false")
 
       webTestClient.get()
         .uri(POM_URI, 12345, "LEI")
@@ -77,6 +77,32 @@ class PomControllerIntTest : IntegrationTestBase() {
         .isOk
         .expectBody(Boolean::class.java)
         .isEqualTo(false)
+    }
+
+    @Test
+    fun `should return false if prison API returns a 404`() {
+      prisonApi.stubHasPomRoleResponse(404)
+
+      webTestClient.get()
+        .uri(POM_URI, 12345, "LEI")
+        .headers(setAuthorisation(roles = listOf("ROLE_MANAGE_POM_CASES__MANAGE_POM_CASES_UI")))
+        .exchange()
+        .expectStatus()
+        .isOk
+        .expectBody(Boolean::class.java)
+        .isEqualTo(false)
+    }
+
+    @Test
+    fun `should return error if prison API returns an error other than 404`() {
+      prisonApi.stubHasPomRoleResponse(500)
+
+      webTestClient.get()
+        .uri(POM_URI, 12345, "LEI")
+        .headers(setAuthorisation(roles = listOf("ROLE_MANAGE_POM_CASES__MANAGE_POM_CASES_UI")))
+        .exchange()
+        .expectStatus()
+        .is5xxServerError
     }
   }
 }
