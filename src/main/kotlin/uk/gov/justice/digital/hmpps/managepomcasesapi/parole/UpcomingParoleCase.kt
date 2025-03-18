@@ -5,8 +5,11 @@ import java.time.LocalDate
 
 data class UpcomingParoleCase(
   val caseId: NomisId,
-  val caseName: String,
-  val pomName: String?,
+  val firstName: String?,
+  val lastName: String?,
+  val pomId: Int?,
+  val pomFirstName: String?,
+  val pomLastName: String?,
   val pomRole: String?,
   val paroleDateValue: LocalDate?,
   val paroleDateType: String?,
