@@ -10,8 +10,11 @@ class ParoleCase(
 ) {
   fun asUpcomingParoleCase() = UpcomingParoleCase(
     caseId = caseData.caseId,
-    caseName = caseData.fullName,
-    pomName = allocatedCase.pomName,
+    firstName = caseData.firstName,
+    lastName = caseData.lastName,
+    pomFirstName = allocatedCase.pomFirstName,
+    pomLastName = allocatedCase.pomLastName,
+    pomId = allocatedCase.pomId,
     pomRole = "@SUPPORTING@",
     paroleDateValue = nextParoleDate?.date,
     paroleDateType = nextParoleDate?.type,
