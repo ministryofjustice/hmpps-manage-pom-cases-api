@@ -23,12 +23,8 @@ class ParoleCase(
   fun upcomingReview() = nextParoleDate != null
 
   private val nextParoleDate: ParoleDate?
-    get() = paroleDates.find { it.upcoming() }
+    get() = paroleDates.nextUpcomingDate()
 
-  private val paroleDates: List<ParoleDate>
-    get() = listOf(
-      ParoleDate("Target Hearing Date", paroleReview.targetHearingDate),
-      ParoleDate("Tariff End Date", caseData.tariffDate),
-      ParoleDate("Parole Eligibility Date", caseData.paroleEligibilityDate),
-    )
+  private val paroleDates: ParoleDates
+    get() = ParoleDates.from(caseData, paroleReview)
 }
