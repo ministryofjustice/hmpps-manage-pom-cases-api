@@ -8,5 +8,5 @@ class StaffService(
   private val prisonApiClient: PrisonApiClient,
 ) {
   fun staffDetail(staffId: Int) = prisonApiClient.staffDetail(staffId)
-  fun hasPomRole(staffId: Int, agencyId: String) = prisonApiClient.hasPomRole(staffId, agencyId)
+  fun hasPomRole(staffId: Int, agencyId: String): Boolean = prisonApiClient.hasPomRole(staffId, agencyId)
 }

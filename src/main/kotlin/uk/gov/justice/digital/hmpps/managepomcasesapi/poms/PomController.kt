@@ -44,5 +44,5 @@ class PomController(
   fun hasPomAtPrison(
     @PathVariable(name = "staffId") staffId: Int,
     @PathVariable(name = "prisonCode") prisonCode: String,
-  ) = staffService.hasPomRole(staffId, prisonCode)
+  ): Boolean = staffService.hasPomRole(staffId, prisonCode)
 }

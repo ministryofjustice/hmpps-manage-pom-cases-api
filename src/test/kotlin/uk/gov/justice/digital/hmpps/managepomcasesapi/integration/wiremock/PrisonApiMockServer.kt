@@ -22,12 +22,12 @@ class PrisonApiMockServer : WireMockServer(8093) {
     )
   }
 
-  fun stubHasPomRoleResponse(response: String = "true") {
+  fun stubHasPomRoleResponse(status: Int = 200, response: String = "") {
     stubFor(
       get(urlPathMatching("/prison-api/api/staff/[0-9]+/[A-Z]{3}/roles/POM")).willReturn(
         aResponse()
           .withHeader("Content-Type", "application/json")
-          .withStatus(200)
+          .withStatus(status)
           .withBody(response),
       ),
     )
