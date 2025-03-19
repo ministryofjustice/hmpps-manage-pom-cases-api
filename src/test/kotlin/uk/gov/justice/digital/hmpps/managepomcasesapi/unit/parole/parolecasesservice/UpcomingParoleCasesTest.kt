@@ -108,7 +108,7 @@ class UpcomingParoleCasesTest {
   ) {
     Mockito.`when`(mpcCasesService.forPrison("LEI")).thenReturn(cases)
 
-    Mockito.`when`(allocationsService.forCasesAtPrison(cases.map { it.caseId },"LEI"))
+    Mockito.`when`(allocationsService.forCasesAtPrison(cases.map { it.caseId }, "LEI"))
       .thenReturn(allocations)
 
     Mockito.`when`(paroleReviewsRepository.latestReviewsFor(listOf("ABC123", "ABC456")))

@@ -7,8 +7,8 @@ import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.types.NomisId
 class AllocationsService(
   private val allocationHistoryRepository: AllocationHistoryRepository,
 ) {
-  fun forCasesAtPrison(caseIds: List<NomisId>, prisonCode: String): List<Allocation> {
-    return allocationHistoryRepository.activeAllocationsAt(prisonCode, caseIds).map {
+  fun forCasesAtPrison(caseIds: List<NomisId>, prisonCode: String): List<Allocation> = allocationHistoryRepository
+    .activeAllocationsAt(prisonCode, caseIds).map {
       Allocation(
         caseId = it.caseId!!,
         pomId = it.primaryPomNomisId!!,
@@ -17,5 +17,4 @@ class AllocationsService(
         pomLastName = it.primaryPomName?.split(", ")?.first(),
       )
     }
-  }
 }
