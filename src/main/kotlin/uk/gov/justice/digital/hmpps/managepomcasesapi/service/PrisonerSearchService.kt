@@ -17,11 +17,11 @@ class PrisonerSearchService(
     val results = mutableListOf<CaseData>()
     var moreResultsToRead = true
     var page = 0 // Zero-based page index
-    val size = 1000 // The size of the page to be returned
+    val size = 1500 // The size of the page to be returned
 
     while (moreResultsToRead) {
       val response = prisonerSearchApiWebClient.get()
-        .uri("/prisoner-search/prison/{prisonCode}?page={page}&size={size}", prisonCode, page, size)
+        .uri("/prisoner-search/prison/{prisonCode}?page={page}&size={size}&include-restricted-patients=true", prisonCode, page, size)
         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
         .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
         .retrieve()
@@ -40,11 +40,17 @@ class PrisonerSearchService(
     return results
   }
 
+  data class Pageable(
+    val offset: Int,
+    val pageNumber: Int,
+    val pageSize: Int,
+  )
   data class PaginatedResponse(
     val totalElements: Int,
     val totalPages: Int,
     val first: Boolean,
     val last: Boolean,
     val content: List<CaseData>,
+    val pageable: Pageable? = null,
   )
 }
