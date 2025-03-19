@@ -8,7 +8,7 @@ import org.springframework.core.ParameterizedTypeReference
 import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.IntegrationTestBase
 import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.HmppsAuthApiExtension.Companion.hmppsAuth
 import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.PrisonerSearchApiExtension.Companion.prisonerSearchApi
-import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.UpcomingParoleCase
+import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleCase
 
 class ParoleCasesControllerIntTest : IntegrationTestBase() {
 
@@ -67,7 +67,7 @@ class ParoleCasesControllerIntTest : IntegrationTestBase() {
         .headers(setAuthorisation(roles = listOf("ROLE_MANAGE_POM_CASES__MANAGE_POM_CASES_UI")))
         .exchange()
         .expectStatus().isOk
-        .expectBody(object : ParameterizedTypeReference<List<UpcomingParoleCase>>() {})
+        .expectBody(object : ParameterizedTypeReference<List<ParoleCase>>() {})
         .returnResult()
     }
   }

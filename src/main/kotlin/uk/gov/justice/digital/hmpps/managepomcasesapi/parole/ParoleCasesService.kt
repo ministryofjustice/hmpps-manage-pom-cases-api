@@ -12,9 +12,9 @@ class ParoleCasesService(
   private val allocationsService: AllocationsService,
   private val paroleReviewsRepository: ParoleReviewRepository,
 ) {
-  fun upcomingAt(prisonCode: String): List<UpcomingParoleCase> = upcomingParoleDatesAt(prisonCode).map { (case, data) ->
+  fun upcomingAt(prisonCode: String): List<ParoleCase> = upcomingParoleDatesAt(prisonCode).map { (case, data) ->
     var (paroleDate, allocation) = data
-    UpcomingParoleCase(
+    ParoleCase(
       caseId = case.caseId,
       firstName = case.firstName,
       lastName = case.lastName,

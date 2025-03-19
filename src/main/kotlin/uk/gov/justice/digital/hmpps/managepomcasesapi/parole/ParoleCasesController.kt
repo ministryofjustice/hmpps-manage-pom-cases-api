@@ -40,5 +40,5 @@ class ParoleCasesController(
       ),
     ],
   )
-  fun upcoming(@PathVariable(name = "prisonCode") prisonCode: String): List<UpcomingParoleCase> = paroleCasesService.upcomingAt(prisonCode)
+  fun upcoming(@PathVariable(name = "prisonCode") prisonCode: String): List<ParoleCase> = paroleCasesService.upcomingAt(prisonCode)
 }
