@@ -40,10 +40,10 @@ class PrisonerSearchServiceTest {
 
     paginatedResponses.forEachIndexed { i, response ->
       stubbedRequests.get(
-        "/prisoner-search/prison/{prisonCode}?page={page}&size={size}",
+        "/prisoner-search/prison/{prisonCode}?page={page}&size={size}&include-restricted-patients=true",
         "LEI",
         i,
-        1000,
+        1500,
         response = response,
       )
     }
