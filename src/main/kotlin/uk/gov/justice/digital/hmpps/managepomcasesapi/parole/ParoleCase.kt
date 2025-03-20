@@ -3,7 +3,7 @@ package uk.gov.justice.digital.hmpps.managepomcasesapi.parole
 import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.types.NomisId
 import java.time.LocalDate
 
-data class UpcomingParoleCase(
+data class ParoleCase(
   val caseId: NomisId,
   val firstName: String?,
   val lastName: String?,
