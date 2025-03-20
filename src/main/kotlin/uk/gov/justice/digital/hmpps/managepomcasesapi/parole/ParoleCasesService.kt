@@ -13,14 +13,14 @@ class ParoleCasesService(
   private val paroleReviewsRepository: ParoleReviewRepository,
 ) {
   fun upcomingAt(prisonCode: String): List<ParoleCase> = upcomingParoleDatesAt(prisonCode).map { (case, data) ->
-    var (paroleDate, allocation) = data
+    val (paroleDate, allocation) = data
     ParoleCase(
       caseId = case.caseId,
       firstName = case.firstName,
       lastName = case.lastName,
-      pomId = allocation?.pomId,
-      pomFirstName = allocation?.pomFirstName,
-      pomLastName = allocation?.pomLastName,
+      pomId = allocation.pomId,
+      pomFirstName = allocation.pomFirstName,
+      pomLastName = allocation.pomLastName,
       pomRole = "@SUPPORTING@",
       paroleDateValue = paroleDate.nextUpcomingDate()?.date,
       paroleDateType = paroleDate.nextUpcomingDate()?.type,

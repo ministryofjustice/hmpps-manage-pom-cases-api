@@ -5,11 +5,16 @@ import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.types.NomisId
 
 class DummyAllocation {
   companion object {
-    fun withCaseId(caseId: NomisId): Allocation = Allocation(
-      caseId = caseId,
-      pomId = -1,
-      pomFirstName = "_FIRST_NAME",
-      pomLastName = "_LAST_NAME",
+    fun with(
+      caseId: NomisId,
+      pomId: Int = -1,
+      pomFirstName: String = "_FIRST_NAME",
+      pomLastName: String = "_LAST_NAME",
+    ): Allocation = Allocation(
+      caseId,
+      pomId,
+      pomFirstName,
+      pomLastName,
     )
   }
 }

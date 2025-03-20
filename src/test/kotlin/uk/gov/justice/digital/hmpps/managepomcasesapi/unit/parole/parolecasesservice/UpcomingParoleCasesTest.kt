@@ -8,7 +8,6 @@ import uk.gov.justice.digital.hmpps.managepomcasesapi.allocations.Allocation
 import uk.gov.justice.digital.hmpps.managepomcasesapi.allocations.AllocationsService
 import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.CaseData
 import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.MpcCasesService
-import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.types.NomisId
 import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleCasesService
 import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleReview
 import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleReviewRepository
@@ -45,8 +44,8 @@ class UpcomingParoleCasesTest {
   fun `Case is not upcoming parole when their parole date is not within the next 10 months`() {
     givenValues(
       allocations = listOf(
-        allocationOf(caseId = "ABC123"),
-        allocationOf(caseId = "ABC456"),
+        DummyAllocation.with(caseId = "ABC123"),
+        DummyAllocation.with(caseId = "ABC456"),
       ),
       paroleReviews = listOf(
         ParoleReview(caseId = "ABC123", targetHearingDate = LocalDate.now().minusDays(1)),
@@ -64,8 +63,8 @@ class UpcomingParoleCasesTest {
   fun `Case is upcoming parole when they are allocated and their parole review date is in the next 10 months`() {
     givenValues(
       allocations = listOf(
-        allocationOf(caseId = "ABC123"),
-        allocationOf(caseId = "ABC456"),
+        DummyAllocation.with(caseId = "ABC123"),
+        DummyAllocation.with(caseId = "ABC456"),
       ),
       paroleReviews = listOf(
         ParoleReview(caseId = "ABC123", targetHearingDate = LocalDate.now().plusDays(1)),
@@ -88,8 +87,8 @@ class UpcomingParoleCasesTest {
         CaseData(prisonerNumber = "ABC456", paroleEligibilityDate = LocalDate.now().plusMonths(1)),
       ),
       allocations = listOf(
-        allocationOf(caseId = "ABC123"),
-        allocationOf(caseId = "ABC456"),
+        DummyAllocation.with(caseId = "ABC123"),
+        DummyAllocation.with(caseId = "ABC456"),
       ),
       paroleReviews = listOf(),
     )
@@ -99,6 +98,32 @@ class UpcomingParoleCasesTest {
 
     Assertions.assertEquals(1, results.size)
     Assertions.assertEquals("ABC456", results.first().caseId)
+  }
+
+  @Test
+  fun `Upcoming parole cases contain basic information regarding the case`() {
+    givenValues(
+      cases = listOf(
+        CaseData(prisonerNumber = "ABC456", paroleEligibilityDate = LocalDate.now().plusMonths(1)),
+      ),
+      allocations = listOf(
+        DummyAllocation.with(caseId = "ABC456", pomId = 999, pomFirstName = "Angela", pomLastName = "Pomme"),
+      ),
+    )
+
+    val results = ParoleCasesService(mpcCasesService, allocationsService, paroleReviewsRepository)
+      .upcomingAt("LEI")
+
+    Assertions.assertEquals(1, results.size)
+    with(results.first()) {
+      Assertions.assertEquals("ABC456", caseId)
+      Assertions.assertEquals(999, pomId)
+      Assertions.assertEquals("Angela", pomFirstName)
+      Assertions.assertEquals("Pomme", pomLastName)
+      Assertions.assertEquals("@SUPPORTING@", pomRole)
+      Assertions.assertEquals("Parole Eligibility Date", paroleDateType)
+      Assertions.assertEquals(LocalDate.now().plusMonths(1), paroleDateValue)
+    }
   }
 
   private fun givenValues(
@@ -114,6 +139,4 @@ class UpcomingParoleCasesTest {
     Mockito.`when`(paroleReviewsRepository.latestReviewsFor(listOf("ABC123", "ABC456")))
       .thenReturn(paroleReviews)
   }
-
-  private fun allocationOf(caseId: NomisId): Allocation = DummyAllocation.withCaseId(caseId)
 }
