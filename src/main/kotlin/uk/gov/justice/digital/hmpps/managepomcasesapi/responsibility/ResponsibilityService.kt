@@ -5,8 +5,8 @@ import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.types.NomisId
 
 @Service
 class ResponsibilityService(
-  private val calculatedHandoverDatesRepository: CalculatedHandoverDatesRepository,
+  private val caseResponsibilityRepository: CaseResponsibilityRepository,
 ) {
-  fun responsibilityOf(caseIds: List<NomisId>): List<CaseResponsibility> = calculatedHandoverDatesRepository
+  fun responsibilityOf(caseIds: List<NomisId>): List<CaseResponsibility> = caseResponsibilityRepository
     .responsibilitiesOf(caseIds)
 }
