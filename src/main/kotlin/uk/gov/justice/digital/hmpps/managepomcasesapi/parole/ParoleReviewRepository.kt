@@ -9,15 +9,13 @@ import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.types.NomisId
 interface ParoleReviewRepository : JpaRepository<ParoleReview, Long> {
   @Query(
     """
-      SELECT * FROM (
-        SELECT 
-          DISTINCT ON (nomis_offender_id)
-          COALESCE(target_hearing_date, custody_report_due) AS next_parole_date, *
-        FROM parole_reviews
-        WHERE NOT (target_hearing_date IS NULL AND custody_report_due IS NULL)
-        ORDER BY nomis_offender_id, next_parole_date DESC
-      ) latest_parole_reviews
-      WHERE latest_parole_reviews.nomis_offender_id IN (:caseIds)
+      SELECT
+        DISTINCT ON (nomis_offender_id)
+        COALESCE(target_hearing_date, custody_report_due) AS next_parole_date, *
+      FROM parole_reviews
+      WHERE NOT (target_hearing_date IS NULL AND custody_report_due IS NULL)
+      AND nomis_offender_id IN (:caseIds)
+      ORDER BY nomis_offender_id, next_parole_date DESC
     """,
     nativeQuery = true,
   )
