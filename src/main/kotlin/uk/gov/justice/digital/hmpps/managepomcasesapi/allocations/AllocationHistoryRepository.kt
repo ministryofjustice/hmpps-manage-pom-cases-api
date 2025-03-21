@@ -15,5 +15,5 @@ interface AllocationHistoryRepository : JpaRepository<AllocationHistory, Long> {
     AND prison = :prisonCode""",
     nativeQuery = true,
   )
-  fun activeAllocationsAt(prisonCode: String, caseIds: List<String>? = null): List<AllocationHistory>
+  fun activeAllocationsAt(prisonCode: String, caseIds: List<String>): List<AllocationHistory>
 }
