@@ -13,7 +13,7 @@ class ParoleCasesService(
   private val responsibilityService: ResponsibilityService,
 ) {
   fun upcomingAt(prisonCode: String): List<ParoleCase> {
-    with(UpcomingParoleCasesBuilder()) {
+    with(ParoleCasesBuilder()) {
       mpcCasesService.forPrison(prisonCode).forEach(::addCase)
       allocationsService.forCasesAtPrison(caseIds, prisonCode).forEach(::addAllocation)
       paroleReviewsRepository.latestReviewsFor(allocatedCaseIds).forEach(::addParoleReview)

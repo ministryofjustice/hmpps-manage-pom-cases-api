@@ -5,7 +5,7 @@ import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.CaseData
 import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.types.NomisId
 import uk.gov.justice.digital.hmpps.managepomcasesapi.responsibility.CaseResponsibility
 
-class UpcomingParoleCasesBuilder {
+class ParoleCasesBuilder {
   private var joinedCases = hashMapOf<NomisId, JoinedCase>()
 
   val caseIds: List<NomisId> by lazy {
