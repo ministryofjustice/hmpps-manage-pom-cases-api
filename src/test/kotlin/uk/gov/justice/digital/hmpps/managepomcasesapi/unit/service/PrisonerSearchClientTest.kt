@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.springframework.web.reactive.function.client.WebClient
 import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.CaseData
-import uk.gov.justice.digital.hmpps.managepomcasesapi.service.PrisonerSearchService
-import uk.gov.justice.digital.hmpps.managepomcasesapi.service.PrisonerSearchService.PaginatedResponse
+import uk.gov.justice.digital.hmpps.managepomcasesapi.client.PrisonerSearchClient
+import uk.gov.justice.digital.hmpps.managepomcasesapi.client.PrisonerSearchClient.PaginatedResponse
 import uk.gov.justice.digital.hmpps.managepomcasesapi.support.StubbedRequests
 
-class PrisonerSearchServiceTest {
+class PrisonerSearchClientTest {
   private val prisonerSearchApiWebClient = mock<WebClient>()
   private val stubbedRequests = StubbedRequests(prisonerSearchApiWebClient)
 
@@ -48,7 +48,7 @@ class PrisonerSearchServiceTest {
       )
     }
 
-    val prisonerSearch = PrisonerSearchService(prisonerSearchApiWebClient)
+    val prisonerSearch = PrisonerSearchClient(prisonerSearchApiWebClient)
     val results = prisonerSearch.findByPrison("LEI")
     Assertions.assertEquals(4, results.size)
     Assertions.assertEquals(listOf("GAX123", "GAX456", "GAX789", "GAX101112"), results.map { it.prisonerNumber })

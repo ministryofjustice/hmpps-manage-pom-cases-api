@@ -1,4 +1,4 @@
-package uk.gov.justice.digital.hmpps.managepomcasesapi.service
+package uk.gov.justice.digital.hmpps.managepomcasesapi.client
 
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono
 import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.CaseData
 
 @Service
-class PrisonerSearchService(
+class PrisonerSearchClient(
   private val prisonerSearchApiWebClient: WebClient,
 ) {
   // Swagger docs: https://prisoner-search.prison.service.justice.gov.uk/swagger-ui/index.html#/Popular/findByPrison

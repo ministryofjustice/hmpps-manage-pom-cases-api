@@ -6,14 +6,14 @@ import org.mockito.Mockito
 import org.mockito.kotlin.mock
 import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.CaseData
 import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.MpcCasesService
-import uk.gov.justice.digital.hmpps.managepomcasesapi.service.PrisonerSearchService
+import uk.gov.justice.digital.hmpps.managepomcasesapi.client.PrisonerSearchClient
 
 class ForPrisonTests {
 
   @Test
   fun `Cases without a valid legalStatus are excluded`() {
-    val prisonerSearchService = mock<PrisonerSearchService>()
-    Mockito.`when`(prisonerSearchService.findByPrison("LEI")).thenReturn(
+    val prisonerSearchClient = mock<PrisonerSearchClient>()
+    Mockito.`when`(prisonerSearchClient.findByPrison("LEI")).thenReturn(
       listOf(
         CaseData(prisonerNumber = "ABC123", legalStatus = "SENTENCED"),
         CaseData(prisonerNumber = "ABC456", legalStatus = "INDETERMINATE_SENTENCE"),
@@ -23,15 +23,15 @@ class ForPrisonTests {
       ),
     )
 
-    val results = MpcCasesService(prisonerSearchService).forPrison("LEI")
+    val results = MpcCasesService(prisonerSearchClient).forPrison("LEI")
     Assertions.assertEquals(results.size, 4)
     Assertions.assertEquals(results.map { it.prisonerNumber }, listOf("ABC123", "ABC456", "ABC789", "DEF123"))
   }
 
   @Test
   fun `Cases with a valid legalStatus but an imprisonmentStatus of A_FINE are excluded`() {
-    val prisonerSearchService = mock<PrisonerSearchService>()
-    Mockito.`when`(prisonerSearchService.findByPrison("LEI")).thenReturn(
+    val prisonerSearchClient = mock<PrisonerSearchClient>()
+    Mockito.`when`(prisonerSearchClient.findByPrison("LEI")).thenReturn(
       listOf(
         CaseData(prisonerNumber = "ABC123", imprisonmentStatus = "A_FINE", legalStatus = "SENTENCED"),
         CaseData(prisonerNumber = "ABC456", legalStatus = "SENTENCED"),
@@ -39,7 +39,7 @@ class ForPrisonTests {
       ),
     )
 
-    val results = MpcCasesService(prisonerSearchService).forPrison("LEI")
+    val results = MpcCasesService(prisonerSearchClient).forPrison("LEI")
     Assertions.assertEquals(results.size, 2)
     Assertions.assertEquals(results.map { it.prisonerNumber }, listOf("ABC456", "ABC789"))
   }
