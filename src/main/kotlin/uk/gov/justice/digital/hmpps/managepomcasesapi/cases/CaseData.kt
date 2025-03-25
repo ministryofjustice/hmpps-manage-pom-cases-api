@@ -63,5 +63,4 @@ class CaseData(
   val dischargeDate: LocalDate? = null,
 ) {
   val caseId = prisonerNumber
-  val fullName = "$firstName $lastName"
 }
