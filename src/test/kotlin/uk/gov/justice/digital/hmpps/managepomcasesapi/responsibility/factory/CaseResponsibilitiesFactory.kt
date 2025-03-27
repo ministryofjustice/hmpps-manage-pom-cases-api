@@ -1,4 +1,4 @@
-package uk.gov.justice.digital.hmpps.managepomcasesapi.unit.responsibility.factory
+package uk.gov.justice.digital.hmpps.managepomcasesapi.responsibility.factory
 
 import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.types.NomisId
 import uk.gov.justice.digital.hmpps.managepomcasesapi.responsibility.CaseResponsibility

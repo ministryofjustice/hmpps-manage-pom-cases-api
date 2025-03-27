@@ -1,4 +1,4 @@
-package uk.gov.justice.digital.hmpps.managepomcasesapi.unit.parole.paroledates
+package uk.gov.justice.digital.hmpps.managepomcasesapi.parole.paroledates
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
