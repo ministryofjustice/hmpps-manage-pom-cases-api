@@ -7,8 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDO
 import org.springframework.http.HttpHeaders
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.reactive.server.WebTestClient
-import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.ExampleApiExtension
-import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.ExampleApiExtension.Companion.exampleApi
 import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.HmppsAuthApiExtension
 import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.HmppsAuthApiExtension.Companion.hmppsAuth
 import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.PrisonApiExtension
@@ -17,7 +15,7 @@ import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.Priso
 import uk.gov.justice.digital.hmpps.managepomcasesapi.integration.wiremock.PrisonerSearchApiExtension.Companion.prisonerSearchApi
 import uk.gov.justice.hmpps.test.kotlin.auth.JwtAuthorisationHelper
 
-@ExtendWith(HmppsAuthApiExtension::class, ExampleApiExtension::class, PrisonApiExtension::class, PrisonerSearchApiExtension::class)
+@ExtendWith(HmppsAuthApiExtension::class, PrisonApiExtension::class, PrisonerSearchApiExtension::class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles("test")
 abstract class IntegrationTestBase {
@@ -36,7 +34,6 @@ abstract class IntegrationTestBase {
 
   protected fun stubPingWithResponse(status: Int) {
     hmppsAuth.stubHealthPing(status)
-    exampleApi.stubHealthPing(status)
     prisonApi.stubHealthPing(status)
     prisonerSearchApi.stubHealthPing(status)
   }

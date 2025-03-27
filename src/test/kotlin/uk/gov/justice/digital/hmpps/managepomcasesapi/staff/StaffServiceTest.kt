@@ -1,4 +1,4 @@
-package uk.gov.justice.digital.hmpps.managepomcasesapi.service
+package uk.gov.justice.digital.hmpps.managepomcasesapi.staff
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
