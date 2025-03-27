@@ -2,14 +2,14 @@ package uk.gov.justice.digital.hmpps.managepomcasesapi.cases
 
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
-import uk.gov.justice.digital.hmpps.managepomcasesapi.service.PrisonerSearchService
+import uk.gov.justice.digital.hmpps.managepomcasesapi.client.PrisonerSearchClient
 
 @Service
 class MpcCasesService(
-  private val prisonerSearchService: PrisonerSearchService,
+  private val prisonerSearchClient: PrisonerSearchClient,
 ) {
   @Cacheable("MpcCasesService.forPrison")
-  fun forPrison(prisonCode: String): List<CaseData> = prisonerSearchService
+  fun forPrison(prisonCode: String): List<CaseData> = prisonerSearchClient
     .findByPrison(prisonCode)
     .filterNot { REJECTED_IMPRISONMENT_STATUSES.contains(it.imprisonmentStatus) }
     .filter { ACCEPTABLE_LEGAL_STATUSES.contains(it.legalStatus) }

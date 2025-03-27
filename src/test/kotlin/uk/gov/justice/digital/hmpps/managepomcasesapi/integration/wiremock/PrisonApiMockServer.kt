@@ -32,6 +32,17 @@ class PrisonApiMockServer : WireMockServer(8093) {
       ),
     )
   }
+
+  fun stubStaffDetailResponse(status: Int = 200, response: String = "") {
+    stubFor(
+      get(urlPathMatching("/prison-api/api/staff/[0-9]+")).willReturn(
+        aResponse()
+          .withHeader("Content-Type", "application/json")
+          .withStatus(status)
+          .withBody(response),
+      ),
+    )
+  }
 }
 
 class PrisonApiExtension :

@@ -13,8 +13,8 @@ import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleReview
 import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleReviewRepository
 import uk.gov.justice.digital.hmpps.managepomcasesapi.responsibility.CaseResponsibility
 import uk.gov.justice.digital.hmpps.managepomcasesapi.responsibility.ResponsibilityService
-import uk.gov.justice.digital.hmpps.managepomcasesapi.unit.parole.support.DummyAllocation
-import uk.gov.justice.digital.hmpps.managepomcasesapi.unit.responsibility.support.DummyResponsibility
+import uk.gov.justice.digital.hmpps.managepomcasesapi.unit.parole.factory.allocation
+import uk.gov.justice.digital.hmpps.managepomcasesapi.unit.responsibility.factory.pomResponsibility
 import java.time.LocalDate
 
 class UpcomingParoleCasesTest {
@@ -37,7 +37,7 @@ class UpcomingParoleCasesTest {
         ParoleReview(caseId = "ABC456", targetHearingDate = LocalDate.now().plusDays(1)),
       ),
       caseResponsibilities = listOf(
-        DummyResponsibility.pomResponsible("ABC123"),
+        pomResponsibility("ABC123"),
       ),
     )
 
@@ -51,15 +51,15 @@ class UpcomingParoleCasesTest {
   fun `Case is not upcoming parole when their parole date is not within the next 10 months`() {
     givenValues(
       allocations = listOf(
-        DummyAllocation.with(caseId = "ABC123"),
-        DummyAllocation.with(caseId = "ABC456"),
+        allocation(caseId = "ABC123"),
+        allocation(caseId = "ABC456"),
       ),
       paroleReviews = listOf(
         ParoleReview(caseId = "ABC123", targetHearingDate = LocalDate.now().minusDays(1)),
         ParoleReview(caseId = "ABC456", targetHearingDate = LocalDate.now().minusDays(1)),
       ),
       caseResponsibilities = listOf(
-        DummyResponsibility.pomResponsible("ABC123"),
+        pomResponsibility("ABC123"),
       ),
     )
 
@@ -73,15 +73,15 @@ class UpcomingParoleCasesTest {
   fun `Case is upcoming parole when they are allocated and their parole review date is in the next 10 months`() {
     givenValues(
       allocations = listOf(
-        DummyAllocation.with(caseId = "ABC123"),
-        DummyAllocation.with(caseId = "ABC456"),
+        allocation(caseId = "ABC123"),
+        allocation(caseId = "ABC456"),
       ),
       paroleReviews = listOf(
         ParoleReview(caseId = "ABC123", targetHearingDate = LocalDate.now().plusDays(1)),
         ParoleReview(caseId = "ABC456", targetHearingDate = LocalDate.now().minusDays(1)),
       ),
       caseResponsibilities = listOf(
-        DummyResponsibility.pomResponsible("ABC123"),
+        pomResponsibility("ABC123"),
       ),
     )
 
@@ -100,12 +100,12 @@ class UpcomingParoleCasesTest {
         CaseData(prisonerNumber = "ABC456", paroleEligibilityDate = LocalDate.now().plusMonths(1)),
       ),
       allocations = listOf(
-        DummyAllocation.with(caseId = "ABC123"),
-        DummyAllocation.with(caseId = "ABC456"),
+        allocation(caseId = "ABC123"),
+        allocation(caseId = "ABC456"),
       ),
       paroleReviews = listOf(),
       caseResponsibilities = listOf(
-        DummyResponsibility.pomResponsible("ABC456"),
+        pomResponsibility("ABC456"),
       ),
     )
 
@@ -123,10 +123,10 @@ class UpcomingParoleCasesTest {
         CaseData(prisonerNumber = "ABC456", firstName = "First", lastName = "Case", paroleEligibilityDate = LocalDate.now().plusMonths(1)),
       ),
       allocations = listOf(
-        DummyAllocation.with(caseId = "ABC456", pomId = 999, pomFirstName = "Angela", pomLastName = "Pomme"),
+        allocation(caseId = "ABC456", pomId = 999, pomFirstName = "Angela", pomLastName = "Pomme"),
       ),
       caseResponsibilities = listOf(
-        DummyResponsibility.pomResponsible("ABC456"),
+        pomResponsibility("ABC456"),
       ),
     )
 
