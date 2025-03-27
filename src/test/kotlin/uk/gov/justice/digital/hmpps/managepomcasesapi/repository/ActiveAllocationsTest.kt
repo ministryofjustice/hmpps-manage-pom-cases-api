@@ -1,4 +1,4 @@
-package uk.gov.justice.digital.hmpps.managepomcasesapi.integration.allocations.repository
+package uk.gov.justice.digital.hmpps.managepomcasesapi.repository
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test

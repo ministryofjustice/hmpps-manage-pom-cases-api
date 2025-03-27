@@ -1,4 +1,4 @@
-package uk.gov.justice.digital.hmpps.managepomcasesapi.unit.parole.parolecasesservice
+package uk.gov.justice.digital.hmpps.managepomcasesapi.parole.parolecasesservice
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -11,10 +11,10 @@ import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.MpcCasesService
 import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleCasesService
 import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleReview
 import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.ParoleReviewRepository
+import uk.gov.justice.digital.hmpps.managepomcasesapi.parole.factory.allocation
 import uk.gov.justice.digital.hmpps.managepomcasesapi.responsibility.CaseResponsibility
 import uk.gov.justice.digital.hmpps.managepomcasesapi.responsibility.ResponsibilityService
-import uk.gov.justice.digital.hmpps.managepomcasesapi.unit.parole.factory.allocation
-import uk.gov.justice.digital.hmpps.managepomcasesapi.unit.responsibility.factory.pomResponsibility
+import uk.gov.justice.digital.hmpps.managepomcasesapi.responsibility.factory.pomResponsibility
 import java.time.LocalDate
 
 class UpcomingParoleCasesTest {

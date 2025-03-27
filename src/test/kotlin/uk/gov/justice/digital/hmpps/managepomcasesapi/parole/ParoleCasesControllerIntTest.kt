@@ -1,4 +1,4 @@
-package uk.gov.justice.digital.hmpps.managepomcasesapi.integration.parole
+package uk.gov.justice.digital.hmpps.managepomcasesapi.parole
 
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

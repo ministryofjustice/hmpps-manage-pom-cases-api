@@ -1,4 +1,4 @@
-package uk.gov.justice.digital.hmpps.managepomcasesapi.unit.parole.factory
+package uk.gov.justice.digital.hmpps.managepomcasesapi.parole.factory
 
 import uk.gov.justice.digital.hmpps.managepomcasesapi.allocations.Allocation
 import uk.gov.justice.digital.hmpps.managepomcasesapi.cases.types.NomisId

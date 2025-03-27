@@ -1,4 +1,4 @@
-package uk.gov.justice.digital.hmpps.managepomcasesapi.unit.cases.mpccases
+package uk.gov.justice.digital.hmpps.managepomcasesapi.cases.mpccases
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test

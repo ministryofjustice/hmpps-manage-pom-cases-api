@@ -1,4 +1,4 @@
-package uk.gov.justice.digital.hmpps.managepomcasesapi.integration.poms
+package uk.gov.justice.digital.hmpps.managepomcasesapi.poms
 
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
